@@ -21,10 +21,10 @@ pipeline {
         echo "deploying the app"
 
         withCredentials([
-          usernamePassword(credentials: "github_credentials", usernameVariable: USER, passwordVariable: PWD)
+          usernamePassword(credentialsId: "github_credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
         ]){
-          echo $GITHUB_USER
-          echo $GITHUB_PASSWORD
+          echo $USERNAME
+          echo $PASSWORD
         }
       }
     }
