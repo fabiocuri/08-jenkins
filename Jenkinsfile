@@ -1,10 +1,6 @@
 pipeline {
   
   agent any
-
-  environment {
-    SERVER_CREDENTIALS = credentials("github_credentials")
-  }
   
   stages {
     
@@ -23,7 +19,13 @@ pipeline {
     stage("deploy") {
       steps {
         echo "deploying the app"
-        echo "using credentials from ${SERVER_CREDENTIALS}"
+
+        withCredentials([
+          usernamePassword(credentials: "github_credentials", usernameVariable: GITHUB_USER, passwordVariable: GITHUB_PASSWORD)
+        ]){
+          echo $GITHUB_USER
+          echo $GITHUB_PASSWORD
+        }
       }
     }
   }
