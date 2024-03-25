@@ -8,8 +8,16 @@ pipeline {
   }
   stages {
     stage("build") {
+      input{
+        message "select the environment"
+        ok "Done"
+        parameters {
+          choice(name: "ENV", choices: ["DEV", "PROD"], description: "")
+        }
+      }
       steps {
         echo "building the app ${params.VERSION}"
+        echo "deploying to ${ENV}"
       }
     }
     stage("test") {
