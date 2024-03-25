@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage("build") {
       steps {
-        echo "building the app ${VERSION}"
+        echo "building the app ${params.VERSION}"
       }
     }
     stage("test") {
