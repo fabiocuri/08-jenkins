@@ -1,6 +1,10 @@
 pipeline {
   
   agent any
+
+  environment {
+    SERVER_CREDENTIALS = credentials("github_credentials")
+  }
   
   stages {
     
@@ -19,6 +23,7 @@ pipeline {
     stage("deploy") {
       steps {
         echo "deploying the app"
+        echo "using credentials from ${SERVER_CREDENTIALS}"
       }
     }
   }
