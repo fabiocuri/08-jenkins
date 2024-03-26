@@ -7,39 +7,23 @@ library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
 pipeline {
 
   agent any
-
-  parameters {
-    booleanParam(name: "RUN_PIPELINE", defaultValue: true, description: "")
-    choice(name: "VERSION", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "")
-  }
   
   stages {
 
     stage("build-image") {
       steps {
         buildImage 'fabiocuri/jenkins-demo:1.0'
-        dockerLogin()
       }
     }
   
-    stage("test") {
-      when {
-        expression {
-          params.RUN_PIPELINE
-        }
-      }
+    stage("push-image") {
       steps {
-        echo "Building the app ${params.VERSION} ..."
-        echo "Deploying to ${ENV} environment ..."
+        dockerLogin()
+        dockerPush 'fabiocuri/jenkins-demo:1.0'
       }
     }
           
     stage("deploy") {
-      when {
-        expression {
-          params.RUN_PIPELINE
-        }
-      }
       steps {
         buildJar()
       }
