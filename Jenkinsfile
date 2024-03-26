@@ -40,11 +40,6 @@ pipeline {
           params.RUN_PIPELINE
         }
       }
-      when {
-        expression {
-          params.EXECUTETESTS
-        }
-      }
       steps {
         buildJar()
       }
