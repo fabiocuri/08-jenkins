@@ -15,14 +15,10 @@ pipeline {
   
   stages {
 
-    stage("lint") {
-      when {
-        expression {
-          params.RUN_PIPELINE
-        }
-      }
+    stage("build-image") {
       steps {
-        buildJar()
+        dockerLogin()
+        buildImage 'fabiocuri/jenkins-demo:1.0'
       }
     }
   
