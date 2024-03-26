@@ -6,12 +6,7 @@ library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
 
 pipeline {
 
-  agent {
-          docker {
-                  image 'docker:latest'
-                  args '-v /var/run/docker.sock:/var/run/docker.sock'
-          }
-  }
+  agent any
 
   parameters {
     booleanParam(name: "RUN_PIPELINE", defaultValue: true, description: "")
