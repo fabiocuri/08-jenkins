@@ -17,8 +17,8 @@ pipeline {
 
     stage("build-image") {
       steps {
-        dockerLogin()
         buildImage 'fabiocuri/jenkins-demo:1.0'
+        dockerLogin()
       }
     }
   
