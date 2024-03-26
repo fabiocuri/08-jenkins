@@ -23,10 +23,5 @@ pipeline {
       }
     }
           
-    stage("deploy") {
-      steps {
-        buildJar()
-      }
-    }
   }
 }
