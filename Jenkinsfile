@@ -1,3 +1,7 @@
+#!/user/bin/env groovy
+
+@Library("jenkins-shared-library")_
+
 pipeline {
   
   agent any
@@ -6,11 +10,12 @@ pipeline {
     choice(name: "VERSION", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "")
     booleanParam(name: "EXECUTETESTS", defaultValue: true, description: "")
   }
+  
   stages {
     stage("build") {
       input{
         message "select the environment"
-        ok "Done"
+        ok "Done!"
         parameters {
           choice(name: "ENV", choices: ["DEV", "PROD"], description: "")
         }
@@ -27,7 +32,7 @@ pipeline {
         }
       }
       steps {
-        echo "testing the app"
+        buildJar()
       }
     }
 
