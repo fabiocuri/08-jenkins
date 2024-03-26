@@ -49,17 +49,5 @@ pipeline {
         buildJar()
       }
     }
-
-    stage("deploy") {
-      steps {
-        echo "deploying the app"
-
-        withCredentials([
-          usernamePassword(credentialsId: "github_credentials", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')
-        ]){
-          echo "hi"
-        }
-      }
-    }
   }
 }
