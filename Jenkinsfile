@@ -1,6 +1,8 @@
-#!/user/bin/env groovy
-
-@Library("jenkins-shared-library")_
+#!/usr/bin/env groovy
+library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
+        [$class: 'GitSCMSource',
+        remote: 'https://github.com/fabiocuri/jenkins-shared-library.git',
+        credentialsId: 'gitlab-credentials'])
 
 pipeline {
   
