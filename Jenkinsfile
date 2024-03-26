@@ -9,25 +9,41 @@ pipeline {
   agent any
 
   parameters {
+    booleanParam(name: "RUN_PIPELINE", defaultValue: true, description: "")
     choice(name: "VERSION", choices: ["1.1.0", "1.2.0", "1.3.0"], description: "")
-    booleanParam(name: "EXECUTETESTS", defaultValue: true, description: "")
   }
   
   stages {
-    stage("build") {
-      input{
-        message "select the environment"
-        ok "Done!"
-        parameters {
-          choice(name: "ENV", choices: ["DEV", "PROD"], description: "")
+
+    stage("lint") {
+      when {
+        expression {
+          params.RUN_PIPELINE
         }
       }
       steps {
-        echo "building the app ${params.VERSION}"
-        echo "deploying to ${ENV}"
+        buildJar()
       }
     }
+  
     stage("test") {
+      when {
+        expression {
+          params.RUN_PIPELINE
+        }
+      }
+      steps {
+        echo "Building the app ${params.VERSION} ..."
+        echo "Deploying to ${ENV} environment ..."
+      }
+    }
+          
+    stage("deploy") {
+      when {
+        expression {
+          params.RUN_PIPELINE
+        }
+      }
       when {
         expression {
           params.EXECUTETESTS
