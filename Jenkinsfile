@@ -5,8 +5,13 @@ library identifier: 'jenkins-shared-library@main', retriever: modernSCM(
         credentialsId: 'gitlab-credentials'])
 
 pipeline {
-  
-  agent any
+
+  agent {
+          docker {
+                  image 'docker:latest'
+                  args '-v /var/run/docker.sock:/var/run/docker.sock'
+          }
+  }
 
   parameters {
     booleanParam(name: "RUN_PIPELINE", defaultValue: true, description: "")
