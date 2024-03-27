@@ -10,12 +10,6 @@ pipeline {
   
   stages {
 
-    stage('Checkout') {
-        steps {
-            git credentialsId: 'github-secret-token', url: 'https://github.com/fabiocuri/08-jenkins', branch: 'master'
-        }
-    }
-
     stage("build-image") {
       steps {
         buildImage 'fabiocuri/jenkins-demo:1.0'
